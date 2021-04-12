@@ -15,8 +15,10 @@ public class WordCountRemoveCharacters {
     private static String unnecessaryCharactersReg = "[0-9.,!:%\\(\\)\\[\\]\\{\\}]";
 
     public Map<String, Long> wordCount(String file) throws IOException {
-        String allText = new String(
-                Files.readAllBytes(Paths.get(file)), StandardCharsets.UTF_8);
+//        String allText = new String(
+//                Files.readAllBytes(Paths.get(file)), StandardCharsets.UTF_8);
+
+        String allText = Files.readString(Paths.get(file));
 
         String withoutUnnecessaryCh = allText.replaceAll(unnecessaryCharactersReg, " ");
         String[] split = withoutUnnecessaryCh.split("\\s+");
