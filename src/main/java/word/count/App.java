@@ -7,15 +7,18 @@ import java.io.IOException;
 import java.util.Map;
 
 public class App {
+    private static final String file = "src/main/resources/shakespeare.txt";
     public static void main(String[] args) throws IOException {
         WordCountWordBoundary wordCount = new WordCountWordBoundary();
 
-        String file = "src/main/resources/shakespeare.txt";
 
-        Map<String, Long> wordCountMap = wordCount.wordCharacterRegex(file);
+
+        Map<String, Long> wordCountMap = wordCount.wordCountRegex(file);
 
         wordCountMap.forEach((k,v) -> System.out.printf("%s -> %s %n", k, v));
 
-
+//        WordCount wc = new WordCount();
+//        Map<String, Long> wordCountMap = wc.wordCounter(file);
+        //wordCountMap.forEach((k,v) -> System.out.printf("%s -> %s %n", k, v));
     }
 }
