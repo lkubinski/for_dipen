@@ -13,7 +13,7 @@ import static word.count.utils.PredicateUtils.Not;
 
 public class WordCountWordBoundary {
 
-    public Map<String, Long> wordCountRegex(String file) throws IOException {
+    public Map<String, Long> wordCount(String file) throws IOException {
         Stream<String> lines = Files.lines(Paths.get(file));
 
         Map<String, Long> collect = lines
@@ -27,7 +27,7 @@ public class WordCountWordBoundary {
         LinkedHashMap<String, Long> sortedWords = collect.entrySet()
                 .stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(10)
+                //.limit(10)
                 .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 
         return sortedWords;

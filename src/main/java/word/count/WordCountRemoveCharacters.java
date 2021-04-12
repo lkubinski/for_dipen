@@ -7,26 +7,27 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 import static java.util.stream.Collectors.*;
 
-public class WordCount {
-    private static String unnecessaryChractersReg = "[0-9.,!:%\\(\\)\\[\\]\\{\\}]";
+public class WordCountRemoveCharacters {
+    private static String unnecessaryCharactersReg = "[0-9.,!:%\\(\\)\\[\\]\\{\\}]";
 
-    public Map<String, Long> wordCounter(String file) throws IOException {
+    public Map<String, Long> wordCount(String file) throws IOException {
         String allText = new String(
                 Files.readAllBytes(Paths.get(file)), StandardCharsets.UTF_8);
 
-        String withoutUnnecessaryCh = allText.replaceAll(unnecessaryChractersReg, " ");
+        String withoutUnnecessaryCh = allText.replaceAll(unnecessaryCharactersReg, " ");
         String[] split = withoutUnnecessaryCh.split("\\s+");
         Map<String, Long> unsortedMap = Arrays.stream(split)
                 .map(String::toLowerCase)
-                .collect(groupingBy(w -> w, counting()));
+                .collect(groupingBy(Function.identity(), counting()));
 
         return unsortedMap.entrySet()
                 .stream()
                 .sorted(Map.Entry.<String,Long>comparingByValue().reversed())
-                .limit(10)
+                //.limit(10)
                 .collect(toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue,
